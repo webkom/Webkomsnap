@@ -6,8 +6,6 @@ from config import TOKEN, DATABASE
 app = Flask(__name__)
 
 
-def run():
-    app.run()
 
 
 @app.before_request
@@ -38,3 +36,6 @@ def auth_user():
         return jsonify(username=username), 201
     else:
         abort(403)
+
+if __name__ == "__main__":
+    app.run()
