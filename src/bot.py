@@ -25,4 +25,5 @@ class WebkomStoryBot(SnapchatBot):
     def is_user_registered(self, username):
         db = sqlite3.connect(DATABASE)
         registered_user = db.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()
+        db.close()
         return registered_user is None
