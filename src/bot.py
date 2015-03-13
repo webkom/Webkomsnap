@@ -30,8 +30,8 @@ class WebkomStoryBot(SnapchatBot):
 
     def on_friend_add(self, friend):
         if self.use_auth and not self.user_is_registered(friend):
-                self.no_spam_log("User {} is not in the recognized users database, not accepting friend request".format(friend))
-                return
+            self.no_spam_log("User {} is not in the recognized users database, not accepting friend request".format(friend))
+            return
         self.add_friend(friend)
         self.no_spam_log("Added {} as a friend.".format(friend))
 
