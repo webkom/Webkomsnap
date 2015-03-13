@@ -30,8 +30,8 @@ def auth_user():
         log("Received an invalid request")
         return jsonify(error="Invalid json. Expected username and token fields"), 400
 
-    token = request.json.get('token')
-    username = request.json.get('username')
+    token = request.json.get('token').strip()
+    username = request.json.get('username').strip()
 
     if token == TOKEN:
         exists = g.db.execute("SELECT username FROM users WHERE username = ?", [username]).fetchone()
