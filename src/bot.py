@@ -29,9 +29,9 @@ class WebkomStoryBot(SnapchatBot):
             self.no_spam_log("Received invalid data.", level=logging.ERROR)
 
     def on_friend_add(self, friend):
-        if self.use_auth and not self.is_user_registered(friend):
-            self.no_spam_log("User {} is not in the recognized users database, not accepting friend request".format(friend))
-            return
+        if self.use_auth and not self.user_is_registered(friend):
+                self.no_spam_log("User {} is not in the recognized users database, not accepting friend request".format(friend))
+                return
         self.add_friend(friend)
         self.no_spam_log("Added {} as a friend.".format(friend))
 
@@ -39,4 +39,4 @@ class WebkomStoryBot(SnapchatBot):
         db = sqlite3.connect(DATABASE)
         registered_user = db.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()
         db.close()
-        return registered_user is None
+        return bool(registered_user)
