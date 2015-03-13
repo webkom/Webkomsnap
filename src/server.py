@@ -1,10 +1,11 @@
 import sqlite3
+import logging
 
 from flask import Flask, request, jsonify, g
 from config import TOKEN, DATABASE
 
 app = Flask(__name__)
-
+logging.getLogger(name="werkzeug").setLevel(logging.FATAL)
 
 @app.before_request
 def open_db_connection():
@@ -20,6 +21,7 @@ def close_db_connection(exception):
 @app.route('/create', methods=["POST"])
 def auth_user():
     if not request.json or 'username' not in request.json or 'token' not in request.json:
+        logging.info("Received an invalid request")
         return jsonify(error="Invalid json. Expected username and token fields"), 400
 
     token = request.json.get('token')
@@ -28,11 +30,14 @@ def auth_user():
     if token == TOKEN:
         exists = g.db.execute("SELECT username FROM users WHERE username = ?", [username]).fetchone()
         if exists is not None:
+            logging.info("User {} attempted to re-register".format(username))
             return jsonify(error="A user with that username is already registered"), 400
         g.db.execute("INSERT INTO users ('username') VALUES (?)", [username])
         g.db.commit()
+        logging.info("Added user {} to recognized users.".format(username))
         return jsonify(username=username), 201
     else:
+        logging.info("Received an unauthorized request from {}".format(username))
         return jsonify(error="Invalid token."), 403
 
 if __name__ == "__main__":
