@@ -10,7 +10,10 @@ class WebkomStoryBot(SnapchatBot):
         self.use_auth = use_auth
 
     def on_snap(self, sender, snap):
-        self.post_story(snap)
+        try:
+            self.post_story(snap)
+        except ValueError:
+            pass
 
     def on_friend_add(self, friend):
         if self.use_auth and not self.is_user_registered(friend):
