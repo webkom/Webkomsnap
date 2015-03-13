@@ -6,7 +6,7 @@ from config import DATABASE
 
 class WebkomStoryBot(SnapchatBot):
     def __init__(self, username, password, use_auth=False):
-        super(username, password)
+        super(WebkomStoryBot, self).__init__(username, password)
         self.use_auth = use_auth
 
     def on_snap(self, sender, snap):
