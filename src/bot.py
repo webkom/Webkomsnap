@@ -13,14 +13,12 @@ class WebkomStoryBot(SnapchatBot):
         self.post_story(snap)
 
     def on_friend_add(self, friend):
-        if self.use_auth:
-            if self.is_user_registered(friend):
-                self.add_friend(friend)
+        if self.use_auth and not self.is_user_registered(friend):
             return
-        self.add_friend(friend)
+        self.add_friend(self, friend)
 
     def on_friend_delete(self, friend):
-        self.delete_friend(friend)
+        self.delete_friend(self, friend)
 
     def is_user_registered(self, username):
         db = sqlite3.connect(DATABASE)
