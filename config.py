@@ -1,7 +1,8 @@
 import os
 
+USE_AUTH = False
 USERNAME = "webkom_story"
-PASSWORD = "78CuhGdu"
+PASSWORD = "password" # Only one user can be logged in at a time, so if you run main.py on your machine, the one on the server is going to die. Bad idea.
 DATABASE = os.path.join(os.path.abspath(os.curdir), "sqlite_db")
 TOKEN = "QCNct7Qb9JcNkqF" # <- Top secret.
 LOG_DIR = os.path.join(os.path.abspath(os.curdir), "logs")
