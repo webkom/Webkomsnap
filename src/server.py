@@ -1,11 +1,9 @@
 import sqlite3
 
-from flask import Flask, request, jsonify, abort, g
+from flask import Flask, request, jsonify, g
 from config import TOKEN, DATABASE
 
 app = Flask(__name__)
-
-
 
 
 @app.before_request
@@ -35,7 +33,7 @@ def auth_user():
         g.db.commit()
         return jsonify(username=username), 201
     else:
-        abort(403)
+        return jsonify(error="Invalid token."), 403
 
 if __name__ == "__main__":
     app.run()
