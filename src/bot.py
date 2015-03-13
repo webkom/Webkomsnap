@@ -17,9 +17,6 @@ class WebkomStoryBot(SnapchatBot):
             return
         self.add_friend(self, friend)
 
-    def on_friend_delete(self, friend):
-        self.delete_friend(self, friend)
-
     def is_user_registered(self, username):
         db = sqlite3.connect(DATABASE)
         registered_user = db.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()
