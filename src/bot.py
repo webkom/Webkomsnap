@@ -35,7 +35,7 @@ class WebkomStoryBot(SnapchatBot):
         self.add_friend(friend)
         self.no_spam_log("Added {} as a friend.".format(friend))
 
-    def is_user_registered(self, username):
+    def user_is_registered(self, username):
         db = sqlite3.connect(DATABASE)
         registered_user = db.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()
         db.close()
